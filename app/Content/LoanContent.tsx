@@ -89,7 +89,6 @@ export default function LoanContent() {
     e.preventDefault()
     if (!book_id || !member_id || !staff_id || !borrow_date || !due_date) return alert("Nhập đủ thông tin!")
 
-    // Tự động tính status nếu chưa có (thêm mới)
     let computedStatus = status;
     if (!editingLoan) {
       const today = new Date();
