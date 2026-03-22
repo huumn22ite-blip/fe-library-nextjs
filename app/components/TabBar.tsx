@@ -4,8 +4,8 @@ import { usePathname, useRouter } from "next/navigation";
 
 const tabs = [
 
-  
-  { name: "Dashboard", path: "/" },
+
+  { name: "Dashboard", path: "/dashboard" },
   { name: "Login", path: "/login" },
 ];
 
@@ -20,13 +20,13 @@ export default function TabBar() {
 
         return (
           <button
+            type="button"
             key={tab.path}
             onClick={() => router.push(tab.path)}
-            className={`px-4  py-2 rounded-lg transition ${
-              isActive
+            className={`px-4  py-2 rounded-lg transition ${isActive
                 ? " text-black"
                 : "text-black hover:bg-gray-300"
-            }`}
+              }`}
           >
             {tab.name}
           </button>

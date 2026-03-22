@@ -4,5 +4,5 @@ export interface Book {
     tacgia?: string
       category_id?: number
     total_copies?: number
-    available_copies?: string
+    available_copies?: number
 }

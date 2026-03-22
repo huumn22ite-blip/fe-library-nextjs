@@ -1,18 +1,30 @@
 "use client";
 
+import { useRouter, usePathname } from "next/navigation";
+
 type SidebarProps = {
   activeTab: string;
   setActiveTab: (tab: string) => void;
 };
 
 export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const tabs = [
     { name: "Books", key: "books" },
     { name: "Staff", key: "staff" },
-     { name: "Categories", key: "categories" },
-      { name: "Loans", key: "loans" },
-       { name: "Members", key: "member" },
+    { name: "Categories", key: "categories" },
+    { name: "Loans", key: "loans" },
+    { name: "Members", key: "member" },
   ];
+
+  function handleTabClick(key: string) {
+    setActiveTab(key);
+    if (pathname !== "/") {
+      router.push("/");
+    }
+  }
 
   return (
     <div className="flex flex-col w-56 h-screen border-r p-4 bg-gray-50">
@@ -22,8 +34,9 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 
       {tabs.map((tab) => (
         <button
+          type="button"
           key={tab.key}
-          onClick={() => setActiveTab(tab.key)}
+          onClick={() => handleTabClick(tab.key)}
           className={`ml-3 px-4 py-3 mb-2 text-left rounded-lg transition transform ${
             activeTab === tab.key
               ? "bg-black w-full text-white"

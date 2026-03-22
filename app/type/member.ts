@@ -3,7 +3,7 @@ export interface Member {
    name?: string
    phone?: string
    address?: string
-      membership_date?: Date
+      membership_date?: string
    status?: string
    memberscol?: string
 }

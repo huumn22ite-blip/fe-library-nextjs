@@ -3,8 +3,8 @@ export interface Loan {
    book_id?: number
    member_id?: number
    staff_id?: number
-   borrow_date?: Date
-   due_date?: Date
-   return_date?: Date
+   borrow_date?: string
+   due_date?: string
+   return_date?: string 
    status?: string
 }

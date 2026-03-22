@@ -13,7 +13,7 @@ export async function getBooks(): Promise<Book[]> {
     const res = await fetch(NEXT_PUBLIC_BOOKS_API_URL)
     return res.json()
 }
-export async function createBooks(data: Book): Promise<Book[]> {
+export async function createBooks(data: Book): Promise<Book> {
     const res = await fetch(NEXT_PUBLIC_BOOKS_API_URL, {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -46,7 +46,7 @@ export async function getStaff(): Promise<Staff[]> {
     const res = await fetch(NEXT_PUBLIC_STAFF_API_URL)
     return res.json()
 }
-export async function createStaff(data: Staff): Promise<Staff[]> {
+export async function createStaff(data: Staff): Promise<Staff> {
     const res = await fetch(NEXT_PUBLIC_STAFF_API_URL, {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -84,7 +84,7 @@ export async function getCategory(): Promise<Category[]> {
     const res = await fetch(NEXT_PUBLIC_CATEGORIES_API_URL)
     return res.json()
 }
-export async function createCategory(data: Category): Promise<Staff[]> {
+export async function createCategory(data: Category): Promise<Category> {
     const res = await fetch(NEXT_PUBLIC_CATEGORIES_API_URL, {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -127,14 +127,24 @@ export async function getMember(): Promise<Member[]> {
     const res = await fetch(NEXT_PUBLIC_MEMBERS_API_URL)
     return res.json()
 }
-export async function createMember(data: Member): Promise<Member[]> {
+export async function createMember(data: Member): Promise<Member> {
     const res = await fetch(NEXT_PUBLIC_MEMBERS_API_URL, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(data)
 
     })
-    return res.json()
+    if (!res.ok) {
+        const errorText = await res.text()
+        throw new Error(errorText || `Create member failed with status ${res.status}`)
+    }
+
+    const contentType = res.headers.get("content-type") || ""
+    if (contentType.includes("application/json")) {
+        return res.json()
+    }
+
+    throw new Error("Create member succeeded but response is not JSON")
 }
 export async function updateMember(id: number, data: Member): Promise<Member[]> {
     const res = await fetch(`${NEXT_PUBLIC_MEMBERS_API_URL}/${id}`, {
@@ -166,14 +176,24 @@ export async function getLoan(): Promise<Loan[]> {
     const res = await fetch(NEXT_PUBLIC_LOANS_API_URL)
     return res.json()
 }
-export async function createLoan(data: Loan): Promise<Loan[]> {
+export async function createLoan(data: Loan): Promise<Loan> {
     const res = await fetch(NEXT_PUBLIC_LOANS_API_URL, {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
-
     })
-    return res.json()
+
+    const text = await res.text()
+
+    if (!res.ok) {
+        throw new Error(text || `Create loan failed: ${res.status}`)
+    }
+
+    try {
+        return JSON.parse(text)
+    } catch {
+        throw new Error("Response is not valid JSON")
+    }
 }
 export async function updateLoan(id: number, data: Loan): Promise<Loan[]> {
     const res = await fetch(`${NEXT_PUBLIC_LOANS_API_URL}/${id}`, {
