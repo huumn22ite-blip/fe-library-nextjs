@@ -58,9 +58,9 @@ export default function MemberContent() {
 
     try {
       if (editingMember && editingMember.id) {
-        await updateMember(editingMember.id, { name, phone, address, membership_date: new Date(membership_date), status })
+        await updateMember(editingMember.id, { name, phone, address, membership_date, status })
       } else {
-        await createMember({ name, phone, address, membership_date: new Date(membership_date), status })
+        await createMember({ name, phone, address, membership_date, status })
       }
       closeModal()
       fetchMember()
