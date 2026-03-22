@@ -98,8 +98,8 @@ export default function MemberContent() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-100">
-          <div className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-2xl relative">
+        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 p-4">
+          <div className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-2xl relative overflow-y-auto max-h-[90vh]">
             {/* Close Button */}
             <button
               type="button"
@@ -182,9 +182,10 @@ export default function MemberContent() {
         {loading ? (
           <p>Đang tải dữ liệu...</p>
         ) : (
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="text-black border-b border-gray-700">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse min-w-max">
+              <thead>
+                <tr className="text-black border-b border-gray-700">
                 <th className="pb-3">Tên thành viên</th>
                 <th className="pb-3">Số điện thoại</th>
                 <th className="pb-3">Địa chỉ</th>
@@ -234,6 +235,7 @@ export default function MemberContent() {
               })()}
           </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

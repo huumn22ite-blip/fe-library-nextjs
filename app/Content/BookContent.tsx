@@ -116,8 +116,8 @@ export default function BookContent() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-100">
-          <div className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-2xl relative">
+        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 p-4">
+          <div className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-2xl relative overflow-y-auto max-h-[90vh]">
             {/* Close Button */}
             <button
               type="button"
@@ -203,8 +203,8 @@ export default function BookContent() {
         {loading ? (
           <p>Đang tải dữ liệu</p>
         ) : (
-          <div>
-            <table className="w-full text-left border-collapse">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse min-w-max">
               <thead>
                 <tr className="text-black border-b border-gray-700">
                   <th className="pb-3">Tên sách</th>

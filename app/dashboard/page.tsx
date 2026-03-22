@@ -9,10 +9,11 @@ import { Loan } from "../type/loan";
 import { Book } from "../type/book";
 import { Member } from "../type/member";
 import { format, differenceInDays, parseISO } from "date-fns";
-import { FaExclamationTriangle, FaClock, FaBook } from "react-icons/fa";
+import { FaExclamationTriangle, FaClock, FaBook, FaBars } from "react-icons/fa";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("books");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loans, setLoans] = useState<Loan[]>([]);
   const [books, setBooks] = useState<Book[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
@@ -94,16 +95,19 @@ export default function DashboardPage() {
 
   return (
     <div className="flex bg-white min-h-screen">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className="flex flex-1 flex-col">
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+      <div className="flex flex-1 flex-col w-full max-w-full overflow-hidden">
         <div
-          className="flex items-center justify-start bg-white p-4 sticky top-0 z-10"
-          style={{ height: "40px" }}
+          className="flex items-center justify-start bg-white p-4 sticky top-0 z-10 border-b"
+          style={{ height: "60px" }}
         >
+          <button className="md:hidden mr-4 text-black" onClick={() => setIsSidebarOpen(true)}>
+            <FaBars size={24} />
+          </button>
           <TabBar />
         </div>
 
-        <div className="flex flex-col text-black mt-5 p-6 gap-6">
+        <div className="flex flex-col text-black mt-2 p-6 gap-6 w-full overflow-x-auto">
           <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
             <FaBook className="text-red-600" /> Dashboard – Sách sắp đến hạn trả
           </h1>
@@ -137,10 +141,11 @@ export default function DashboardPage() {
                 Không có phiếu mượn nào chưa được trả 
               </p>
             ) : (
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="text-gray-600 border-b border-gray-200 text-sm">
-                    <th className="pb-3">Tên sách</th>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse min-w-max">
+                  <thead>
+                    <tr className="text-gray-600 border-b border-gray-200 text-sm">
+                      <th className="pb-3">Tên sách</th>
                     <th className="pb-3">Người mượn</th>
                     <th className="pb-3">Ngày mượn</th>
                     <th className="pb-3">Ngày đến hạn</th>
@@ -210,6 +215,7 @@ export default function DashboardPage() {
                   })}
                 </tbody>
               </table>
+              </div>
             )}
           </div>
         </div>

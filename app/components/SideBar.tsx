@@ -5,9 +5,11 @@ import { useRouter, usePathname } from "next/navigation";
 type SidebarProps = {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 };
 
-export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
+export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }: SidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -21,13 +23,21 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 
   function handleTabClick(key: string) {
     setActiveTab(key);
+    setIsOpen(false);
     if (pathname !== "/") {
       router.push("/");
     }
   }
 
   return (
-    <div className="flex flex-col w-56 h-screen border-r p-4 bg-gray-50">
+    <>
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+      <div className={`fixed inset-y-0 left-0 z-50 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} md:relative md:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col w-64 h-screen border-r p-4 bg-gray-50`}>
       <h1 className="text-black text-center font-bold text-xl mb-8 border-b pb-3">
         Quản lý thư viện
       </h1>
@@ -46,6 +56,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
           {tab.name}
         </button>
       ))}
-    </div>
+      </div>
+    </>
   );
 }
