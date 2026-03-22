@@ -1,8 +1,8 @@
-export const NEXT_PUBLIC_BOOKS_API_URL = "http://localhost:8080/books"
-export const NEXT_PUBLIC_CATEGORIES_API_URL="http://localhost:8080/categories"
-export const NEXT_PUBLIC_STAFF_API_URL = "http://localhost:8080/staff"
-export const NEXT_PUBLIC_LOANS_API_URL="http://localhost:8080/loans"
-export const NEXT_PUBLIC_MEMBERS_API_URL="http://localhost:8080/members"
+export const NEXT_PUBLIC_BOOKS_API_URL = "be-library-go-production.up.railway.app/books"
+export const NEXT_PUBLIC_CATEGORIES_API_URL="be-library-go-production.up.railway.app/categories"
+export const NEXT_PUBLIC_STAFF_API_URL = "be-library-go-production.up.railway.app/staff"
+export const NEXT_PUBLIC_LOANS_API_URL="be-library-go-production.up.railway.app/loans"
+export const NEXT_PUBLIC_MEMBERS_API_URL="be-library-go-production.up.railway.app/members"
 import { Book } from "../type/book";
 import { Category } from "../type/category"
 import { Loan } from "../type/loan"
